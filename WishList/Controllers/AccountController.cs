@@ -36,7 +36,7 @@ namespace WishList.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public async Task<IActionResult> Register(RegisterViewModel viewModel)
+        public IActionResult Register(RegisterViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
@@ -46,7 +46,7 @@ namespace WishList.Controllers
                     Email = viewModel.Email
                 };
 
-                var result = await _userManager.CreateAsync(user, viewModel.Password);
+                var result = _userManager.CreateAsync(user, viewModel.Password).Result;
 
                 if (result.Succeeded)
                 {
