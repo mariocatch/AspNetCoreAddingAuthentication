@@ -4,6 +4,8 @@ namespace WishList.Models
 {
     public class Item
     {
+        public virtual ApplicationUser User { get; set; }
+
         public int Id { get; set; }
 
         [Required]
