@@ -60,7 +60,7 @@ namespace WishList.Controllers
                 }
             }
 
-            return RedirectToAction(nameof(HomeController.Index));
+            return RedirectToAction("Index", "Home");
         }
 
     }
