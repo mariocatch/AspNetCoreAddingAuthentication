@@ -38,27 +38,26 @@ namespace WishList.Controllers
         [AllowAnonymous]
         public IActionResult Register(RegisterViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = new ApplicationUser
-                {
-                    UserName = viewModel.Email,
-                    Email = viewModel.Email
-                };
+                return View(viewModel);
+            }
 
-                var result = _userManager.CreateAsync(user, viewModel.Password).Result;
+            var user = new ApplicationUser
+            {
+                UserName = viewModel.Email,
+                Email = viewModel.Email
+            };
 
-                if (result.Succeeded)
-                {
+            var result = _userManager.CreateAsync(user, viewModel.Password).Result;
 
-                }
-
+            if (!result.Succeeded)
+            {
                 foreach (var error in result.Errors)
                 {
                     ModelState.AddModelError("Password", error.Description);
                     return View(viewModel);
                 }
-
             }
 
             return RedirectToAction(nameof(HomeController.Index));
